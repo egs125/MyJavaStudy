@@ -175,12 +175,53 @@ public class MyNodeList {
 			System.out.println("No saved data!");
 		}else{
 			String str = "";
+			MyNode[] tmpArr = new MyNode[this.count];
+			int index = 0;
+			MyNode tmp;
 			
 			for(int i = 0; i < this.count; i++){
 				str += this.nodeArr[i].getVal() + "\t";
+				
+				MyNode node = new MyNode();
+				node.setVal(this.nodeArr[i].getVal());
+				tmpArr[i] = node;
+			}	
+			
+			for(int i = 0; i < this.count; i++){
+				
+				int min = 9999;
+				
+				for(int j = i; j < this.count; j++){
+					if(min > tmpArr[j].getVal()){
+						min = tmpArr[j].getVal();
+						index = j;
+					}
+				}
+				
+				tmp = tmpArr[i];
+				tmpArr[i] = tmpArr[index];
+				tmpArr[index] = tmp;
+				
 			}
 			
-			System.out.println(str);
+			/*int j = 0;
+			for(int i = 0; i < this.count; i++){
+				j = i;
+				while(tmpArr[j].getVal() > tmpArr[j+1].getVal()){
+					tmp = tmpArr[j];
+					tmpArr[j] = tmpArr[j+1];
+					tmpArr[j+1] = tmp;
+					j--;					
+				}
+			}*/
+			 
+			String ordered = "";
+			for(int i = 0; i < this.count; i++){
+				ordered += tmpArr[i].getVal() + "\t";
+			}
+			
+			System.out.println("Original Data : " + str);
+			System.out.println("Ordered Data : " + ordered);
 		}
 		
 	}
